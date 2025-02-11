@@ -46,5 +46,7 @@ return {
                 }
             },
         }
+        require'lspconfig'.ts_ls.setup{}
+
     end,
 }

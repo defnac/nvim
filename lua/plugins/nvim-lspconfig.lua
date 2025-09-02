@@ -46,7 +46,7 @@ return {
                 }
             },
         }
+        -- Typescript server config
         require'lspconfig'.ts_ls.setup{}
-
     end,
 }

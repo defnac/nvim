@@ -1,7 +1,10 @@
 return {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {},
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+        ensure_installed = {"ts_ls", "omnisharp"},
+    },
     dependencies = {
-      "williamboman/mason.nvim",
+        { "mason-org/mason.nvim", opts = {} },
+        "neovim/nvim-lspconfig",
     }
 }

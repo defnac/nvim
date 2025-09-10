@@ -11,7 +11,9 @@ vim.cmd.colorscheme "gruvbox-material"
 -- Bindings
 vim.g.mapleader = " "
 -- format file
-vim.api.nvim_set_keymap('i', '<leader>f', ':lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>f", function()
+  vim.lsp.buf.format({ async = true })
+end, { noremap = true, silent = true })
 
 -- Show line numbers
 vim.o.number = true

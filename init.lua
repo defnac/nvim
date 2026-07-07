@@ -14,6 +14,10 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>f", function()
   vim.lsp.buf.format({ async = true })
 end, { noremap = true, silent = true })
+-- diagnostics
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { noremap = true, silent = true })
+-- code action
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, silent = true })
 
 -- Show line numbers
 vim.o.number = true

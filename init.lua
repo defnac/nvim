@@ -19,7 +19,8 @@ end, { noremap = true, silent = true })
 vim.o.number = true
 
 -- Clipboard
-if vim.fn.has('win32') or vim.fn.has('win64') then
+if vim.fn.has('wsl') == 1 then
+    -- WSL 2 configuration using Windows executables
     vim.g.clipboard = {
         name = 'WslClipboard',
         copy = {
@@ -32,7 +33,14 @@ if vim.fn.has('win32') or vim.fn.has('win64') then
         },
         cache_enabled = 0,
     }
-
-    -- Enable mouse support
-    vim.opt.mouse = 'a'
+elseif vim.fn.has('linux') == 1 then
+    -- Native Linux (Ubuntu) configuration
+    -- Neovim will automatically use xclip, xsel, or wl-copy if installed on your system.
+    vim.opt.clipboard = 'unnamedplus'
+elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
+    -- Native Windows configuration
+    vim.opt.clipboard = 'unnamedplus'
 end
+
+-- Enable mouse support
+vim.opt.mouse = 'a'

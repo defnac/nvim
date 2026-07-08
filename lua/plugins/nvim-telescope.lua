@@ -1,19 +1,48 @@
 return {
-    'nvim-telescope/telescope.nvim', 
-    tag = '0.1.8',
-    dependencies = { 
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
         'nvim-lua/plenary.nvim',
-        'BurntSushi/ripgrep',
-        'nvim-telescope/telescope-fzf-native.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
-    opts = function(lazy_plugin, opts)
-        local builtin = require('telescope.builtin')
-
-        return { 
-            vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' }),
-            vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' }),
-            vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' }),
-            vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' }),
-        }
-    end
+    keys = {
+        { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Telescope find files' },
+        { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Telescope live grep' },
+        { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Telescope buffers' },
+        { '<leader>fh', function() require('telescope.builtin').help_tags() end,  desc = 'Telescope help tags' },
+    },
+    opts = {
+        defaults = {
+            file_ignore_patterns = {
+                'node_modules/',
+                '%.git/',
+                'dist/',
+                'build/',
+                '%.next/',
+                '%.cache/',
+            },
+        },
+        pickers = {
+            find_files = {
+                hidden = true,
+                no_ignore = true,
+            },
+            live_grep = {
+                additional_args = function()
+                    return { '--hidden', '--no-ignore' }
+                end,
+            },
+        },
+        extensions = {
+            fzf = {
+                fuzzy = true,
+                override_generic_sorter = true,
+                override_file_sorter = true,
+                case_mode = 'smart_case',
+            },
+        },
+    },
+    config = function(_, opts)
+        require('telescope').setup(opts)
+        require('telescope').load_extension('fzf')
+    end,
 }

@@ -5,7 +5,13 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
+    keys = {
+        { "<leader>e", ":NvimTreeToggle<CR>", desc = "Toggle NvimTree", silent = true },
+    },
     opts = {
-        vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+        filters = {
+            dotfiles = false,
+            git_ignored = false,
+        },
     },
 }

@@ -1,4 +1,8 @@
+-- Bindings
+vim.g.mapleader = " "
+
 require("config.lazy")
+require("config.keymaps")
 
 -- Tab config
 vim.opt.tabstop = 4
@@ -7,17 +11,6 @@ vim.opt.expandtab = true
 
 -- Colorscheme
 vim.cmd.colorscheme "gruvbox-material"
-
--- Bindings
-vim.g.mapleader = " "
--- format file
-vim.keymap.set("n", "<leader>f", function()
-  vim.lsp.buf.format({ async = true })
-end, { noremap = true, silent = true })
--- diagnostics
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { noremap = true, silent = true })
--- code action
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { noremap = true, silent = true })
 
 -- Show line numbers
 vim.o.number = true
